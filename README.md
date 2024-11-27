@@ -1,104 +1,178 @@
+Voici un modèle de `README.md` détaillé étape par étape pour votre projet **Vickrey Auction** :
 
-![alt text](image.png)
+```markdown
+# Vickrey Auction Project
 
+Ce projet implémente une application d'enchères basée sur le modèle d'enchères de Vickrey. Ce fichier `README.md` contient des instructions détaillées pour télécharger, configurer, tester et exécuter l'application.
 
+## 1. Lien vers les spécifications
 
-## Vickrey Auction Project
+Vous pouvez consulter les spécifications complètes de l'application [ici](https://lien-vers-les-specifications.com).
 
-### Description
-Ce projet est une implémentation d'un système d'enchères basé sur le principe des enchères de second prix (Vickrey Auction). Les utilisateurs peuvent soumettre leurs enchères, et le système attribue automatiquement l'objet au plus offrant, mais au prix du deuxième enchérisseur le plus élevé.
+## 2. Télécharger les sources
 
----
+### Cloner le dépôt
 
-### Fonctionnalités
-- Soumission des enchères par les utilisateurs.
-- Gestion des enchères et calcul du prix de vente automatiquement.
-- Interface utilisateur simple pour interagir avec le système d'enchères.
+Pour obtenir les sources du projet, vous devez cloner ce dépôt Git sur votre machine locale. Ouvrez un terminal et exécutez la commande suivante :
 
----
-
-### Prérequis
-- Python 3.8 ou supérieur.
-- Django 4.2 ou une version compatible.
-- Un environnement virtuel pour isoler les dépendances.
-
----
-
-### Installation
-
-1. **Cloner le projet :**
-   ```bash
-   git clone https://github.com/votre-repository/vickrey-auction.git
-   cd vickrey-auction
-   ```
-
-2. **Créer un environnement virtuel :**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # Sous Windows : venv\Scripts\activate
-   ```
-
-3. **Installer les dépendances :**
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. **Configurer la base de données :**
-   Appliquer les migrations pour initialiser la base de données.
-   ```bash
-   python manage.py migrate
-   ```
-
-5. **Lancer le serveur de développement :**
-   ```bash
-   python manage.py runserver
-   ```
-
-6. **Accéder à l'application :**
-   Rendez-vous sur [http://127.0.0.1:8000/](http://127.0.0.1:8000/) pour commencer.
-
----
-
-### Scripts Importants
-- **Ajouter des données de test :**
-  Un script Python est inclus pour ajouter des données d'enchères d'exemple :
-  ```bash
-  python manage.py runscript add_sample_bids
-  ```
-
----
-
-### Technologies utilisées
-- **Backend :** Django
-- **Base de données :** SQLite
-- **Extensions Django :** Django Extensions (scripts, outils pour le développement)
-
----
-
-### Structure du projet
-
-```plaintext
-auction_project/
-├── auction/                  # Application principale
-│   ├── models.py             # Modèles des enchères
-│   ├── views.py              # Logique métier et vue
-│   ├── urls.py               # Routes de l'application
-│   ├── templates/            # Fichiers HTML
-│   └── scripts/              # Scripts utilitaires
-├── auction_project/
-│   ├── settings.py           # Paramètres globaux
-│   ├── urls.py               # Routes principales
-│   └── wsgi.py               # Point d'entrée pour le déploiement
-├── manage.py                 # Outil CLI pour Django
-└── requirements.txt          # Dépendances
+```bash
+git clone https://url-de-votre-depot.git
+cd Vickrey_Auction
 ```
 
+## 3. Configurer l'application
+
+### Variables d'environnement
+
+L'application nécessite certaines variables d'environnement pour fonctionner correctement. Vous pouvez les définir dans un fichier `.env` ou directement dans votre terminal.
+
+Voici les variables d'environnement nécessaires :
+
+- `DJANGO_SECRET_KEY` : Clé secrète de Django pour la sécurité.
+- `DATABASE_URL` : URL de connexion à la base de données (ex. `postgres://user:password@localhost:5432/dbname`).
+- `DEBUG` : Mode de débogage (`True` ou `False`).
+- `ALLOWED_HOSTS` : Liste des hôtes autorisés pour l'application (ex. `localhost`).
+
+Créez un fichier `.env` à la racine de votre projet et ajoutez les variables d'environnement suivantes :
+
+```env
+DJANGO_SECRET_KEY=VotreCléSecrèteIci
+DATABASE_URL=postgres://user:password@localhost:5432/vickrey_auction_db
+DEBUG=True
+ALLOWED_HOSTS=localhost
+```
+
+### Installation des dépendances
+
+Après avoir configuré les variables d'environnement, installez les dépendances nécessaires en utilisant `pip` :
+
+```bash
+pip install -r requirements.txt
+```
+
+### Migration de la base de données
+
+Avant de lancer l'application, vous devez effectuer les migrations de la base de données pour appliquer les changements de schéma :
+
+```bash
+python manage.py migrate
+```
+
+## 4. Lancer les tests
+
+Les tests sont intégrés dans le projet et vous pouvez les exécuter avec Django.
+
+### Exécuter les tests unitaires
+
+Pour exécuter tous les tests unitaires du projet, utilisez la commande suivante :
+
+```bash
+python manage.py test
+```
+
+Cela lancera les tests définis dans les applications de votre projet. Vous pouvez également spécifier un module ou une application pour tester uniquement une partie spécifique du projet :
+
+```bash
+python manage.py test votre_application
+```
+
+### Vérification de la couverture de test
+
+Si vous souhaitez vérifier la couverture des tests, vous pouvez installer `coverage` et l'utiliser comme suit :
+
+```bash
+pip install coverage
+coverage run manage.py test
+coverage report
+```
+
+## 5. Exécuter un jeu de données en entrée
+
+Si vous souhaitez tester l'application avec un jeu de données d'entrée spécifique, voici les étapes :
+
+### 5.1 Importer des données depuis un fichier CSV
+
+Si vous avez un fichier CSV contenant les données de test, vous pouvez utiliser un script personnalisé pour importer ces données dans la base de données. Par exemple, créez un fichier `import_data.py` dans le répertoire `scripts/` et ajoutez le code suivant :
+
+```python
+import csv
+from votre_application.models import VotreModele
+
+def importer_donnees(fichier_csv):
+    with open(fichier_csv, mode='r') as fichier:
+        reader = csv.DictReader(fichier)
+        for ligne in reader:
+            # Assurez-vous que les données correspondent à votre modèle
+            VotreModele.objects.create(**ligne)
+
+# Appel de la fonction avec le fichier CSV
+importer_donnees('chemin/vers/votre_fichier.csv')
+```
+
+### 5.2 Exécution du script d'importation
+
+Exécutez le script d'importation dans votre terminal pour importer les données :
+
+```bash
+python scripts/import_data.py
+```
+
+### 5.3 Vérification des données importées
+
+Une fois les données importées, vous pouvez vérifier leur présence dans la base de données en accédant à l'interface d'administration Django ou en interrogeant la base de données directement.
+
+```bash
+python manage.py shell
+>>> from votre_application.models import VotreModele
+>>> VotreModele.objects.all()
+```
+
+## 6. Exécution de l'application
+
+### Lancer le serveur de développement
+
+Une fois que tout est configuré, vous pouvez démarrer le serveur de développement Django avec la commande suivante :
+
+```bash
+python manage.py runserver
+```
+
+L'application sera disponible à l'adresse suivante dans votre navigateur : [http://localhost:8000](http://localhost:8000).
+
+### Docker (optionnel)
+
+Si vous préférez exécuter l'application dans un conteneur Docker, vous pouvez utiliser les commandes suivantes pour construire et démarrer l'application dans un conteneur Docker :
+
+1. Construire l'image Docker :
+
+```bash
+docker build -t vickrey-auction .
+```
+
+2. Lancer le conteneur Docker :
+
+```bash
+docker run -p 8000:8000 vickrey-auction
+```
+
+L'application sera également disponible à [http://localhost:8000](http://localhost:8000).
+http://127.0.0.1:8000/auction/second_price_auction/?reserve_price=100
+
+
+## 7. Conclusion
+
+Vous avez maintenant toutes les étapes nécessaires pour configurer et exécuter le projet **Vickrey Auction**. Si vous rencontrez des problèmes, n'hésitez pas à consulter la documentation officielle de Django ou à poser des questions sur le dépôt du projet.
+
 ---
 
-### Auteur
-- WANNASI MALIKA
+```
 
+### Explication des sections :
 
----
-
+1. **Lien vers les spécifications** : Ajoutez le lien vers la documentation ou les spécifications du projet.
+2. **Téléchargement des sources** : Explique comment cloner le dépôt Git et se déplacer dans le répertoire du projet.
+3. **Configuration de l'application** : Détaille la configuration des variables d'environnement nécessaires et l'installation des dépendances.
+4. **Tests** : Explique comment exécuter les tests unitaires pour vérifier que tout fonctionne correctement.
+5. **Exécution d'un jeu de données en entrée** : Donne un exemple de comment importer des données depuis un fichier CSV dans la base de données pour tester l'application.
+6. **Exécution de l'application** : Montre comment lancer l'application en mode développement ou via Docker.
 

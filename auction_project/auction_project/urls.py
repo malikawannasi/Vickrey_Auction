@@ -1,7 +1,7 @@
-from django.urls import path
-from auction.views import second_price_auction  # Utilisez le chemin correct ici
-from auction import views  # Import the whole views module
+from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    path('', second_price_auction, name='second_price_auction'),
+    path('admin/', admin.site.urls),
+    path('auction/', include('auction.urls')),
 ]
