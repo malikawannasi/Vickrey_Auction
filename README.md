@@ -86,35 +86,12 @@ coverage run manage.py test
 coverage report
 ```
 
-## 5. Exécuter un jeu de données en entrée
-
-Si vous souhaitez tester l'application avec un jeu de données d'entrée spécifique, voici les étapes :
-
-### 5.1 Importer des données depuis un fichier CSV
-
-Si vous avez un fichier CSV contenant les données de test, vous pouvez utiliser un script personnalisé pour importer ces données dans la base de données. Par exemple, créez un fichier `import_data.py` dans le répertoire `scripts/` et ajoutez le code suivant :
-
-```python
-import csv
-from votre_application.models import VotreModele
-
-def importer_donnees(fichier_csv):
-    with open(fichier_csv, mode='r') as fichier:
-        reader = csv.DictReader(fichier)
-        for ligne in reader:
-            # Assurez-vous que les données correspondent à votre modèle
-            VotreModele.objects.create(**ligne)
-
-# Appel de la fonction avec le fichier CSV
-importer_donnees('chemin/vers/votre_fichier.csv')
-```
-
 ### 5.2 Exécution du script d'importation
 
 Exécutez le script d'importation dans votre terminal pour importer les données :
 
 ```bash
-python scripts/import_data.py
+python scripts/add_sample_bids.py
 ```
 
 ### 5.3 Vérification des données importées
@@ -137,7 +114,7 @@ Une fois que tout est configuré, vous pouvez démarrer le serveur de développe
 python manage.py runserver
 ```
 
-L'application sera disponible à l'adresse suivante dans votre navigateur : [http://localhost:8000](http://localhost:8000).
+L'application sera disponible à l'adresse suivante dans votre navigateur : http://127.0.0.1:8000/auction/second_price_auction/?reserve_price=100
 
 ### Docker (optionnel)
 
@@ -155,7 +132,7 @@ docker build -t vickrey-auction .
 docker run -p 8000:8000 vickrey-auction
 ```
 
-L'application sera également disponible à [http://localhost:8000](http://localhost:8000).
+L'application sera également disponible à 
 http://127.0.0.1:8000/auction/second_price_auction/?reserve_price=100
 
 
