@@ -86,7 +86,7 @@ coverage run manage.py test
 coverage report
 ```
 
-### 5.2 Exécution du script d'importation
+### 5 Exécution du script d'importation
 
 Exécutez le script d'importation dans votre terminal pour importer les données :
 
@@ -94,15 +94,6 @@ Exécutez le script d'importation dans votre terminal pour importer les données
 python scripts/add_sample_bids.py
 ```
 
-### 5.3 Vérification des données importées
-
-Une fois les données importées, vous pouvez vérifier leur présence dans la base de données en accédant à l'interface d'administration Django ou en interrogeant la base de données directement.
-
-```bash
-python manage.py shell
->>> from votre_application.models import VotreModele
->>> VotreModele.objects.all()
-```
 
 ## 6. Exécution de l'application
 
